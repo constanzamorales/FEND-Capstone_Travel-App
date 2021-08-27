@@ -28,5 +28,12 @@ app.get('/', function (request, response) {
 
 app.post('/addData', addData);
 async function addData(request, response) {
-    const res = await fetch(`https://`)
-}
+    const res = await fetch(`https://`);
+    try {
+        const newData = await res.json();
+        response.send(newData);
+    }
+    catch (error) {
+        console.log('Error: ', error);
+    }
+};
