@@ -7,13 +7,17 @@ const fetch = require('node-fetch');
 const app = express();
 
 dotenv.config();
-// const apiKey = process.env.API_KEY;
 
-app.use(cors());
+// API keys
+const pixabayKey = process.env.PIXABAY_KEY;
+const weatherbitKey = process.env.WEATHERBIT_KEY;
+const geonamesKey = process.env.GEONAMES_KEY;
 
 // Middleware
-app.user(express.urlencoded({ extended: false }));
-app.user(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+app.use(cors());
 
 app.use(express.static('dist'));
 
@@ -26,9 +30,9 @@ app.get('/', function (request, response) {
     response.sendFile(path.resolve('dist/index.html'))
 });
 
-app.post('/addData', addData);
-async function addData(request, response) {
-    const res = await fetch(`https://`);
+app.post('/weatherData', addWeather);
+async function addWeather(request, response) {
+    const res = await fetch(`https://api.weatherbit.io/v2.0/current?city=${request.body.userInput}&key=${weatherbitKey}`);
     try {
         const newData = await res.json();
         response.send(newData);
