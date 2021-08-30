@@ -13,7 +13,11 @@ function getCity(event) {
     .then(res => res.json())
     .then(function(res) {
         console.log(res);
-        document.getElementById('results').textContent = res.data;
+        // const lat = res.data[0].lat;
+        // const long = res.data[0].lon;
+        // Here goes the function call to convert lat and lon to city
+        // convertLocation(res.data[0].lat, res.data[0].lon);
+        document.getElementById('results').textContent = res.data[0].app_temp;
     })
 }
 
