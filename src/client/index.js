@@ -1,9 +1,7 @@
-import { getLocation } from './js/getLocation'
-import { convertLocation } from './js/convertLocation'
+import { getCity } from './js/getData'
 
 import './styles/style.scss'
 
 export {
-    getLocation,
-    convertLocation
+    getCity
 }

@@ -30,12 +30,11 @@ app.get('/', function (request, response) {
     response.sendFile(path.resolve('dist/index.html'))
 });
 
-app.post('/locationData', getData);
-async function getData(request, response) {
-    const res = await fetch(`http://api.geonames.org/searchJSON?q=${request.body.userInput}&maxRows=1&username=${geonamesKey}`);
+app.post('/weatherData', addWeather);
+async function addWeather(request, response) {
+    const res = await fetch(`https://api.weatherbit.io/v2.0/current?city=${request.body.userInput}&key=${weatherbitKey}`);
     try {
-        // const newData = await res.json();
-        const newData = await res; // Response already comes as a JSON 
+        const newData = await res.json();
         response.send(newData);
     }
     catch (error) {
