@@ -1,6 +1,7 @@
 var path = require('path');
 const express = require('express');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const fetch = require('node-fetch');
 
@@ -14,8 +15,8 @@ const weatherbitKey = process.env.WEATHERBIT_KEY;
 const geonamesKey = process.env.GEONAMES_KEY;
 
 // Middleware
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use(cors());
 
