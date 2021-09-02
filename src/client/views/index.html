@@ -12,9 +12,14 @@
 
     <div class="container">
         <section>
-            <form onsubmit="return Client.getCity(event)">
+            <div class="date">
+                <label for="start">Start date:</label>
+                <input type="date" id="start" name="trip-start" value="yyyy-mm-dd" min="2021-01-01" max="2024-12-31">
+            </div>
+
+            <form onsubmit="return Client.handleSubmit(event)">
                 <input id="city" type="text" name="input" value="" placeholder="Enter a city">
-                <button id="submit" type="submit" name="" onclick="return Client.getCity(event)" onsubmit="return Client.getCity(event)">Search</button>
+                <button id="submit" type="submit" name="" onclick="return Client.handleSubmit(event)" onsubmit="return Client.handleSubmit(event)">Search</button>
             </form>
         </section>
 

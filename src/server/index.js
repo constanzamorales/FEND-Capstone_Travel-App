@@ -31,6 +31,7 @@ app.get('/', function (request, response) {
     response.sendFile(path.resolve('dist/index.html'))
 });
 
+
 app.post('/appData', addData);
 async function addData(request, response) {
 
@@ -45,4 +46,18 @@ async function addData(request, response) {
     catch (error) {
         console.log('Error: ', error);
     }
+
+    /*
+    // Weatherbit API
+    const weatherbitURL = `https://api.weatherbit.io/v2.0/current?lat=${lat}&lon=${lon}`;
+
+    const weatherbitRes = await fetch(weatherbitURL);
+    try {
+        const newData = await weatherbitRes.json();
+        response.send(newData);
+    }
+    catch (error) {
+        console.log('Error: ', error);
+    }
+    */
 };
