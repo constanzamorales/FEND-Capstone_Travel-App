@@ -22,6 +22,7 @@ The app displays:
 2. Then with the city name, the app makes a request to Geonames API to get the latitude and longitude.
 3. The coordinates previously requested along with the dates the user entered are used to make a request to Weatherbit API* to get the weather within that range of days.
 4. The city name is also used to make a request to the Pixabay API, to get a picture of the destination.
+* Note: Although Weatherbit API accepts city names, the project expect us to use multiple APIs for this project, hence the need to use Geonames for coordinates.
 
 ## 3. Technologies and resources used
 1. HTML + CSS + JavaScript
