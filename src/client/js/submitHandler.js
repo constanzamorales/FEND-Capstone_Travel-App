@@ -1,6 +1,10 @@
 const { DateTime } = require("luxon");
 import Litepicker from 'litepicker';
 
+const userInput = document.getElementById('city').value;
+const startDate = document.getElementById('pickerstart').value;
+const endDate = document.getElementById('pickerend').value;
+
 window.onload = function () {
     document.getElementById('city').value = "";
 }
@@ -19,7 +23,10 @@ const picker = new Litepicker({
 const handleSubmit = function(event) {
     event.preventDefault();
 
-    const userInput = document.getElementById('city').value;
+    // Dates
+    console.log(startDate);
+    console.log(endDate);
+    
     fetch('http://localhost:8081/appData', {
         method: 'POST',
         credentials: 'same-origin',
@@ -32,12 +39,8 @@ const handleSubmit = function(event) {
         .then(function (res) {
             console.log(res);
         })
-        .then(getStartDate())
 }
 
-const getStartDate = function(start) {
-    let dateTime = DateTime.local();
-    console.log("Current Date", dateTime.toISO());
-}
+
 
 export { handleSubmit }
