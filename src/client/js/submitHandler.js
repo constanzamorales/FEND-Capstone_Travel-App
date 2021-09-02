@@ -1,8 +1,22 @@
 const { DateTime } = require("luxon");
-let dateTime = DateTime.local();
-console.log("Current Date", dateTime.toISO());
+import Litepicker from 'litepicker';
 
-function handleSubmit(event) {
+window.onload = function () {
+    document.getElementById('city').value = "";
+}
+
+// Setting up date picker
+const tomorrow = DateTime.now().plus({ days: 1 });
+const picker = new Litepicker({
+    element: document.getElementById('pickerstart'),
+    elementEnd: document.getElementById('pickerend'),
+    singleMode: false,
+    allowRepick: true,
+    autoRefresh: true,
+    minDate: tomorrow,
+});
+
+const handleSubmit = function(event) {
     event.preventDefault();
 
     const userInput = document.getElementById('city').value;
@@ -18,6 +32,12 @@ function handleSubmit(event) {
         .then(function (res) {
             console.log(res);
         })
+        .then(getStartDate())
+}
+
+const getStartDate = function(start) {
+    let dateTime = DateTime.local();
+    console.log("Current Date", dateTime.toISO());
 }
 
 export { handleSubmit }
