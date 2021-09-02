@@ -29,9 +29,14 @@ The app displays:
 
 ## 4. How do I run this project?
 Asuming you have everything listed in the package.json installed, you start the server with:
+
 ```npm start```
+
 Run production mode:
+
 ```npm run build-prod```
+
 Run development mode:
+
 ```npm run build-dev```
 
