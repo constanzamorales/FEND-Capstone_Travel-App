@@ -2,8 +2,6 @@ const { DateTime } = require("luxon");
 import Litepicker from 'litepicker';
 import fetch from 'node-fetch';
 
-const startDate = document.getElementById('pickerstart').value;
-const endDate = document.getElementById('pickerend').value;
 
 window.onload = function () {
     document.getElementById('city').value = "";
@@ -18,12 +16,22 @@ const picker = new Litepicker({
     allowRepick: true,
     autoRefresh: true,
     minDate: tomorrow,
+    tooltipNumber: (totalDays) => {
+        return totalDays - 1;
+    }
 });
-
 
 function handleSubmit(event) {
     event.preventDefault()
     let userInput = document.getElementById('city').value
+    const startDate = DateTime.fromISO(document.getElementById('pickerstart').value);
+    const endDate = DateTime.fromISO(document.getElementById('pickerend').value);
+
+    let duration = endDate.diff(startDate, 'days');
+
+    console.log(startDate);
+    console.log(endDate);
+    console.log(duration.values.days);
     fetch('http://localhost:8081/appData', {
         method: 'POST',
         mode: 'cors',
@@ -36,12 +44,9 @@ function handleSubmit(event) {
     .then(res => res.json())
     .then(function(res) {
         console.log(res);
-        document.getElementById('results').textContent = `${res.data[0].city_name}`;
+        document.getElementById('results').textContent = `${res.data[0].temp}°C`;
     })
 
 }
-
-
- 
 
 export { handleSubmit }

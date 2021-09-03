@@ -13,8 +13,8 @@ dotenv.config();
 
 // API keys
 const pixabayKey = process.env.PIXABAY_KEY;
-//const weatherbitKey = process.env.WEATHERBIT_KEY;
-//const geonamesKey = process.env.GEONAMES_KEY;
+const weatherbitKey = process.env.WEATHERBIT_KEY;
+const geonamesKey = process.env.GEONAMES_KEY;
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -35,23 +35,21 @@ app.get('/', function (request, response) {
 
 app.post('/appData', addData);
 async function addData(request, response) {
-    const weatherbitKey = process.env.WEATHERBIT_KEY;
-    const geonamesKey = process.env.GEONAMES_KEY;
     const city = request.body.userInput;
-    console.log('hello!!!')
     getCoordinates(city, geonamesKey).then((cityData) => {
         getWeather(cityData.geonames[0].lat, cityData.geonames[0].lng, weatherbitKey).then((weather) =>{
             try {
                 response.send(weather);
             }
             catch(error) {
-                console.log(error);
+                console.log('Error in the addData function: ',error);
             }
         })
     })
     
 };
 
+// Get the coordinates for the city the user entered
 async function getCoordinates(city, key) {
     const geonamesResponse = await fetch(`http://api.geonames.org/searchJSON?q=${city}&maxRows=1&username=${key}`);
     try {
@@ -63,6 +61,8 @@ async function getCoordinates(city, key) {
         console.log('Error in getCoordinates function: ', error);
     }
 }
+
+// Use the coordinates from the getCoordinates function to get the weather
 async function getWeather(lat, lon, key) {
     const weatherbitResponse = await fetch(`https://api.weatherbit.io/v2.0/current?lat=${lat}&lon=${lon}&key=${key}`);
     try {
