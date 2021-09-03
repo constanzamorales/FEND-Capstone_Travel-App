@@ -1,3 +1,5 @@
+projectData = {};
+
 var path = require('path');
 const express = require('express');
 const cors = require('cors');
@@ -11,8 +13,8 @@ dotenv.config();
 
 // API keys
 const pixabayKey = process.env.PIXABAY_KEY;
-const weatherbitKey = process.env.WEATHERBIT_KEY;
-const geonamesKey = process.env.GEONAMES_KEY;
+//const weatherbitKey = process.env.WEATHERBIT_KEY;
+//const geonamesKey = process.env.GEONAMES_KEY;
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -31,73 +33,43 @@ app.get('/', function (request, response) {
     response.sendFile(path.resolve('dist/index.html'))
 });
 
-
 app.post('/appData', addData);
 async function addData(request, response) {
-
-
-    const callGeonames = (input, key) => {
-        await fetch(`http://api.geonames.org/searchJSON?q=${input}&maxRows=1&username=${key}`);
-        try {
-            const lat = response.geonames[0].lat;
-            const lon = response.geonames[0].lng;
-            console.log(lat, lon);
-            return (lat, lon);
-        }
-        catch (error) {
-            console.log(error);
-        }
-    }
-
-    const callWeatherbit = (lat, lon, key) => {
-        await fetch(`https://api.weatherbit.io/v2.0/current?lat=${lat}&lon=${lon}&key=${key}`);
-        try {
-            const res = await res.json();
-            console.log(res);
-        }
-        catch (error) {
-            console.log(error);
-        }
-    }
-
-    const userInput = request.body.userInput;
-    callGeonames(userInput, geonamesKey)
-    .then((lat, lon) => {
-        callWeatherbit(lat, lon)
-        .then((res) => {
-            console.log(res);
+    const weatherbitKey = process.env.WEATHERBIT_KEY;
+    const geonamesKey = process.env.GEONAMES_KEY;
+    const city = request.body.userInput;
+    getCoordinates(city, geonamesKey).then((city) => {
+        getWeather(city.geonames[0].lat, city.geonames[0].lng, weatherbitKey).then((weather) =>{
+            try {const newData = await weather.json();
+            response.send(newData);
+            }
+            catch(error) {
+                console.log(error);
+            }
         })
     })
-
-
-
-
-
-    /*
-    // Geonames API
-    const geonamesURL = `http://api.geonames.org/searchJSON?q=${request.body.userInput}&maxRows=1&username=${geonamesKey}`;
-
-    const geonamesRes = await fetch(geonamesURL);
-    try {
-        const newData = await geonamesRes.json();
-        response.send(newData);
-    }
-    catch (error) {
-        console.log('Error: ', error);
-    }
-
     
-    // Weatherbit API
-    const weatherbitURL = `https://api.weatherbit.io/v2.0/current?lat=${lat}&lon=${lon}`;
-
-    const weatherbitRes = await fetch(weatherbitURL);
-    try {
-        const newData = await weatherbitRes.json();
-        response.send(newData);
-    }
-    catch (error) {
-        console.log('Error: ', error);
-    }
-    */
 };
 
+const getCoordinates = (city, key) => {
+    const geonamesResponse = await fetch(`http://api.geonames.org/searchJSON?q=${city}&maxRows=1&username=${key}`);
+    try {
+        const city = await geonamesResponse.json();
+        console.log(city);
+        return city;
+    }
+    catch (error) {
+        console.log('Error in getCoordinates function: ', error);
+    }
+}
+const getWeather = (lat, lon, key) => {
+    const weatherbitResponse = await fetch(`https://api.weatherbit.io/v2.0/current?lat=${lat}&lon=${lon}&key=${key}`);
+    try {
+        const weather = await weatherbitResponse.json();
+        console.log(weather);
+        return weather;
+    }
+    catch (error) {
+        console.log('Error in the getWeather function: ', error);
+    }
+}

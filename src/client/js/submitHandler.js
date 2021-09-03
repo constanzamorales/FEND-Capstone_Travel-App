@@ -1,7 +1,7 @@
 const { DateTime } = require("luxon");
 import Litepicker from 'litepicker';
+import fetch from 'node-fetch';
 
-const userInput = document.getElementById('city').value;
 const startDate = document.getElementById('pickerstart').value;
 const endDate = document.getElementById('pickerend').value;
 
@@ -20,27 +20,28 @@ const picker = new Litepicker({
     minDate: tomorrow,
 });
 
-const handleSubmit = function(event) {
-    event.preventDefault();
 
-    // Dates
-    console.log(startDate);
-    console.log(endDate);
-    
+function handleSubmit(event) {
+    event.preventDefault()
+    let userInput = document.getElementById('city').value
     fetch('http://localhost:8081/appData', {
         method: 'POST',
+        mode: 'cors',
         credentials: 'same-origin',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify({ userInput }),
     })
-        .then(res => res.json())
-        .then(function (res) {
-            console.log(res);
-        })
+    .then(res => res.json())
+    .then(function(res) {
+        console.log(res);
+        document.getElementById('results').textContent = `${res}`;
+    })
+
 }
 
 
+ 
 
 export { handleSubmit }
