@@ -1,12 +1,13 @@
-const { DateTime } = require("luxon");
-import Litepicker from 'litepicker';
+//import Litepicker from 'litepicker';
 import fetch from 'node-fetch';
+import { setDuration } from './tripDuration';
 
 
 window.onload = function () {
     document.getElementById('city').value = "";
 }
 
+/*
 // Setting up date picker
 const tomorrow = DateTime.now().plus({ days: 1 });
 const picker = new Litepicker({
@@ -20,18 +21,13 @@ const picker = new Litepicker({
         return totalDays - 1;
     }
 });
+*/
 
 function handleSubmit(event) {
     event.preventDefault()
-    let userInput = document.getElementById('city').value
-    const startDate = DateTime.fromISO(document.getElementById('pickerstart').value);
-    const endDate = DateTime.fromISO(document.getElementById('pickerend').value);
+    setDuration();
+    const userInput = document.getElementById('city').value;
 
-    let duration = endDate.diff(startDate, 'days');
-
-    console.log(startDate);
-    console.log(endDate);
-    console.log(duration.values.days);
     fetch('http://localhost:8081/appData', {
         method: 'POST',
         mode: 'cors',
