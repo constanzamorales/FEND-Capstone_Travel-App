@@ -38,10 +38,11 @@ async function addData(request, response) {
     const weatherbitKey = process.env.WEATHERBIT_KEY;
     const geonamesKey = process.env.GEONAMES_KEY;
     const city = request.body.userInput;
-    getCoordinates(city, geonamesKey).then((city) => {
-        getWeather(city.geonames[0].lat, city.geonames[0].lng, weatherbitKey).then((weather) =>{
-            try {const newData = await weather.json();
-            response.send(newData);
+    console.log('hello!!!')
+    getCoordinates(city, geonamesKey).then((cityData) => {
+        getWeather(cityData.geonames[0].lat, cityData.geonames[0].lng, weatherbitKey).then((weather) =>{
+            try {
+                response.send(weather);
             }
             catch(error) {
                 console.log(error);
@@ -51,18 +52,18 @@ async function addData(request, response) {
     
 };
 
-const getCoordinates = (city, key) => {
+async function getCoordinates(city, key) {
     const geonamesResponse = await fetch(`http://api.geonames.org/searchJSON?q=${city}&maxRows=1&username=${key}`);
     try {
-        const city = await geonamesResponse.json();
-        console.log(city);
-        return city;
+        const cityData = await geonamesResponse.json();
+        console.log(cityData);
+        return cityData;
     }
     catch (error) {
         console.log('Error in getCoordinates function: ', error);
     }
 }
-const getWeather = (lat, lon, key) => {
+async function getWeather(lat, lon, key) {
     const weatherbitResponse = await fetch(`https://api.weatherbit.io/v2.0/current?lat=${lat}&lon=${lon}&key=${key}`);
     try {
         const weather = await weatherbitResponse.json();

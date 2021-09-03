@@ -36,7 +36,7 @@ function handleSubmit(event) {
     .then(res => res.json())
     .then(function(res) {
         console.log(res);
-        document.getElementById('results').textContent = `${res}`;
+        document.getElementById('results').textContent = `${res.data[0].city_name}`;
     })
 
 }
