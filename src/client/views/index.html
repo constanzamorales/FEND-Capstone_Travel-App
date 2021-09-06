@@ -11,8 +11,10 @@
     <header>Travel App</header>
 
     <div class="container">
-        <section>
-
+        <div>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus obcaecati dolorem eaque qui veritatis cupiditate non asperiores inventore ipsum laborum omnis consectetur odio, culpa illum deleniti, minus totam ducimus quisquam!</p>
+        </div>
+        <section class="inputs">
             <form onsubmit="return Client.handleSubmit(event)">
                 <div class="date">
                     <label for="end">From:</label>
@@ -21,7 +23,10 @@
                     <input id="pickerend" name="trip-end" value="yyyy-mm-dd">
                 </div>
 
-                <input id="city" type="text" name="input" value="" placeholder="Enter a city">
+                <div>
+                    <input id="city" type="text" name="input" value="" placeholder="Enter a city">
+                </div>
+
                 <button id="submit" type="submit" name="" onclick="return Client.handleSubmit(event)" onsubmit="return Client.handleSubmit(event)">Search</button>
             </form>
         </section>
@@ -30,14 +35,14 @@
             <div id="results">
                 <h3>Results:</h3>
                 <ul>
-                    <li id="data">Data: </li>
+                    <li>Data: <p id="data"></p></li>
                 </ul>
             </div>
         </section>
     </div>
 
     <footer>
-        <p>Coded by Constanza</p>
+        <p>Coded by Coni</p>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/litepicker.js"></script>
 

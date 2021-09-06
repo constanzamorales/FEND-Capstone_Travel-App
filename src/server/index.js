@@ -32,40 +32,18 @@ app.get('/', function (request, response) {
 });
 
 
-/*
-app.post('/appImages', async (request, response) => {
-    const city = request.body.userInput;
-    console.log(request.body);
-    getCoordinates(city, geonamesKey).then((cityData) => {
-        const country = cityData.geonames[0].countryName;
-        console.log(request.body.country);
-        getImage(city, country, pixabayKey).then((image) => {
-            try {
-                response.send(image);
-            }
-            catch (error) {
-                console.log(error);
-            }
-        })
-    })
-});
-*/
-
 app.post('/appData', addData);
 async function addData(request, response) {
     const city = request.body.userInput;
-    console.log(request.body);
     getCoordinates(city, geonamesKey).then((cityData) => {
+        const duration = request.body.duration;
         const country = cityData.geonames[0].countryName;
-        console.log(country);
         const lat = cityData.geonames[0].lat;
         const lon = cityData.geonames[0].lng;
-        const duration = request.body.duration;
-        // console.log(request.body);
         getImage(city, country, pixabayKey).then((image) => {
-            console.log(image);
             getWeather(lat, lon, weatherbitKey, duration).then((weather) =>{
                 try {
+                    // Send response as an array, with weather info and image
                     response.send([weather, image]);
                 }
                 catch (error) {

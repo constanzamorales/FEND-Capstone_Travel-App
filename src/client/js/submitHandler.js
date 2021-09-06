@@ -1,33 +1,18 @@
-//import Litepicker from 'litepicker';
 import fetch from 'node-fetch';
 import { setDuration } from './tripDuration';
+const { DateTime } = require("luxon");
 
-
+// Reset values when reloading page
 window.onload = function () {
     document.getElementById('city').value = "";
+    document.getElementById('pickerstart').value = DateTime.now().toISODate();
+    document.getElementById('pickerend').value = 'YYYY-MM-DD';
 }
-
-/*
-// Setting up date picker
-const tomorrow = DateTime.now().plus({ days: 1 });
-const picker = new Litepicker({
-    element: document.getElementById('pickerstart'),
-    elementEnd: document.getElementById('pickerend'),
-    singleMode: false,
-    allowRepick: true,
-    autoRefresh: true,
-    minDate: tomorrow,
-    tooltipNumber: (totalDays) => {
-        return totalDays - 1;
-    }
-});
-*/
 
 function handleSubmit(event) {
     event.preventDefault()
     // Save duration value in a variable
     const duration = setDuration();
-    console.log(duration);
     const userInput = document.getElementById('city').value;
 
     fetch('http://localhost:8081/appData', {
@@ -42,7 +27,7 @@ function handleSubmit(event) {
         .then(res => res.json())
         .then(function(res) {
             console.log(res);
-            document.getElementById('results').textContent = `${res[0].data[0].temp}°C`;
+            document.getElementById('data').textContent = `${res[0].data[0].temp}°C`;
         })
 }
 
