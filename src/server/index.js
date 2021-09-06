@@ -1,4 +1,3 @@
-import setDuration from './js/tripDuration'
 var path = require('path');
 const express = require('express');
 const cors = require('cors');
@@ -39,6 +38,7 @@ async function addData(request, response) {
         const lat = cityData.geonames[0].lat;
         const lon = cityData.geonames[0].lng;
         const duration = request.body.duration;
+        // console.log(request.body);
         getWeather(lat, lon, weatherbitKey, duration).then((weather) =>{
             try {
                 response.send(weather);
@@ -63,8 +63,9 @@ async function getCoordinates(city, key) {
     }
 }
 
-// Use the coordinates from the getCoordinates function to get the weather
+// Use the coordinates from the getCoordinates function to get the weather.
 async function getWeather(lat, lon, key, duration) {
+    // If the duration of the trip is equal or longer than 7 days, get the forecast.
     if (duration >= 7) {
         const weatherbitResponse = await fetch(`https://api.weatherbit.io/v2.0/forecast/daily?lat=${lat}&lon=${lon}&days=${duration}&key=${key}`);
         try {
@@ -86,7 +87,5 @@ async function getWeather(lat, lon, key, duration) {
         catch (error) {
             console.log('Error in the getWeather function: ', error);
         }
-    } else {
-        alert('Please enter a valid duration for your trip :)');
-    }
+    } 
 }

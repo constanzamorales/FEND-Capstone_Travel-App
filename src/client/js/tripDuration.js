@@ -18,9 +18,9 @@ const setDuration = () => {
     const startDate = DateTime.fromISO(document.getElementById('pickerstart').value);
     const endDate = DateTime.fromISO(document.getElementById('pickerend').value);
 
-    let duration = endDate.diff(startDate, 'days');
-    console.log(duration.values.days);
-    return duration;
+    let dateDiff = endDate.diff(startDate, 'days');
+    const duration = dateDiff.values.days;
+    return duration
 }
 
 

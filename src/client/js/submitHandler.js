@@ -25,7 +25,9 @@ const picker = new Litepicker({
 
 function handleSubmit(event) {
     event.preventDefault()
-    setDuration();
+    // Save duration value in a variable
+    const duration = setDuration();
+    console.log(duration);
     const userInput = document.getElementById('city').value;
 
     fetch('http://localhost:8081/appData', {
@@ -35,7 +37,7 @@ function handleSubmit(event) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userInput }),
+        body: JSON.stringify({ userInput, duration }),
     })
     .then(res => res.json())
     .then(function(res) {
