@@ -4,6 +4,7 @@ const { DateTime } = require("luxon");
 
 // Reset values when reloading page
 window.onload = function () {
+    setOneColumn();
     document.getElementById('city').value = "";
     document.getElementById('pickerstart').value = DateTime.now().toISODate();
     document.getElementById('pickerend').value = 'YYYY-MM-DD';
@@ -27,8 +28,13 @@ function handleSubmit(event) {
         .then(res => res.json())
         .then(function(res) {
             console.log(res);
-            document.getElementById('data').textContent = `${res[0].data[0].temp}°C`;
+            document.getElementById('data').textContent = `${res[0].data[0].temp}°C`
         })
+}
+
+const setOneColumn = () => {
+    const inputs = document.getElementById('inputs');
+    inputs.classList.add('no-results');
 }
 
 export { handleSubmit }

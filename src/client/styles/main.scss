@@ -12,12 +12,20 @@
 	flex-direction: $direction;
 }
 
+@mixin flexLeft($direction) {
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: $direction;
+}
+
+/*
 @mixin theme($light-theme: true) {
 	@if $light-theme {
 		background: lighten($primary-color, 100%);
 		color: darken($text-color, 100%);
 	}
 }
+*/
 
 // Media query mixin
 @mixin mobile {
@@ -26,32 +34,121 @@
 	}
 }
 
-$font-stack: Helvetica, sans-serif;
-$primary-color: #000;
-$secondary-color: rgb(14, 162, 231);
-$background: #fff;
-
-$font-weights: ('regular': 400, 'bold': 700);
-
 body {
-	background: $background;
-	color: $secondary-color;
-	font-weight: weight(bold);
+	background-color: $tertiary-color;
+	color: $text-color;
+	font-family: $font;
+	font-size: 1.1em;
+	font-weight: weight(regular);
+	width: 70%;
+	margin: 0 auto;
+	@include flexLeft(column);
 }
 
-.container {
-	@include flexCenter(row);
+header {
+	padding: 50px 0px;
+	width: 100%;
+	text-align: center;
+	& p {
+		font-size: 0.8em;
+		padding-top: 15px;
+	}
+}
+
+form {
+	@include flexLeft(row);
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	flex-grow: 1;
+	padding-top: 10px;
+
 	@include mobile {
 		// What do I want to do when it's below 800 px
-		flex-direction: column;
 	}
-	/*
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	*/
 }
 
+label {
+	padding-bottom: 8px;
+}
+
+input {
+	border: 1px solid $primary-color;
+	border-radius: 10px;
+	padding-left: 8px;
+	font-size: 1em;
+	width: 180px;
+	height: 45px;
+
+	&:hover {
+		border: 1px solid $secondary-color;
+		box-shadow: 0px 0px 5px 3px rgba($secondary-color, .2);
+		transition: all 0.1s ease-in;
+	}
+	&:focus {
+		border: 2px solid $primary-color;
+		box-shadow: none;
+		outline: none;
+	}
+	&:active {
+		border: 2px solid $primary-color;
+		box-shadow: none;
+		outline: none;
+	}
+}
+
+button {
+	width: 180px;
+	height: 42px;
+	border-radius: 20px;
+	background-color: $primary-color;
+	border: none;
+	color: $bg-color;
+	margin-top: 8px;
+}
+
+footer {
+	@include flexCenter(column);
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	padding: 50px 0px;
+}
+
+.start,
+.end,
+.city {
+	padding-bottom: 20px;
+	display: flex;
+	flex-direction: column;
+}
+
+.inputs {
+	background-color: $bg-color;
+	padding: 20px;
+	border-radius: 15px;
+	box-shadow: 10px 10px 15px -2px rgba($text-color, .15);
+}
+
+.results {
+	width: auto;
+	display: none;
+}
+
+:root {
+	--litepicker-button-prev-month-color-hover: #53599a !important;
+	--litepicker-button-next-month-color-hover: #53599a !important;
+	--litepicker-day-color-hover: #53599a !important;
+	--litepicker-is-start-color-bg: #53599a !important;
+	--litepicker-is-end-color-bg: #53599a !important;
+	--litepicker-button-apply-color-bg: #53599a !important;
+	--litepicker-button-reset-color-hover: #53599a !important;
+	--litepicker-container-months-box-shadow-color: #ddd;
+}
+
+/*
 .light {
 	@include theme($light-theme: false);
 }
+*/
