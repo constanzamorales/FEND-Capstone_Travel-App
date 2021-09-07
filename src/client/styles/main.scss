@@ -1,0 +1,57 @@
+@import './resets';
+@import './variables';
+
+@function weight($weight-name) {
+	@return map-get($font-weights, $weight-name);
+}
+
+@mixin flexCenter($direction) {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: $direction;
+}
+
+@mixin theme($light-theme: true) {
+	@if $light-theme {
+		background: lighten($primary-color, 100%);
+		color: darken($text-color, 100%);
+	}
+}
+
+// Media query mixin
+@mixin mobile {
+	@media (max-width: $mobile) {
+		@content;
+	}
+}
+
+$font-stack: Helvetica, sans-serif;
+$primary-color: #000;
+$secondary-color: rgb(14, 162, 231);
+$background: #fff;
+
+$font-weights: ('regular': 400, 'bold': 700);
+
+body {
+	background: $background;
+	color: $secondary-color;
+	font-weight: weight(bold);
+}
+
+.container {
+	@include flexCenter(row);
+	@include mobile {
+		// What do I want to do when it's below 800 px
+		flex-direction: column;
+	}
+	/*
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	*/
+}
+
+.light {
+	@include theme($light-theme: false);
+}

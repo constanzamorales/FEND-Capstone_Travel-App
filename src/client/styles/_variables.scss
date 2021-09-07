@@ -2,8 +2,6 @@ $font-stack: Helvetica, sans-serif;
 $primary-color: #000;
 $secondary-color: rgb(14, 162, 231);
 $background: #fff;
-
-body {
-	background: $background;
-	color: $secondary-color;
-}
+$text-color: red;
+$font-weights: ('regular': 400, 'bold': 700);
+$mobile: 800px;

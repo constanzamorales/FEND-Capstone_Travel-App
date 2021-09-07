@@ -1,7 +1,7 @@
 import { handleSubmit } from './js/submitHandler'
 import { setDuration } from './js/tripDuration'
 
-import './styles/style.scss'
+import './styles/main.scss'
 
 export {
     handleSubmit,
