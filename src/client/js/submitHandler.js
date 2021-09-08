@@ -4,7 +4,6 @@ const { DateTime } = require("luxon");
 
 // Reset values when reloading page
 window.onload = function () {
-    setOneColumn();
     document.getElementById('city').value = "";
     document.getElementById('pickerstart').value = DateTime.now().toISODate();
     document.getElementById('pickerend').value = 'YYYY-MM-DD';
@@ -28,13 +27,40 @@ function handleSubmit(event) {
         .then(res => res.json())
         .then(function(res) {
             console.log(res);
-            document.getElementById('data').textContent = `${res[0].data[0].temp}°C`
+
+            showContent('results');
+            showContent('destination-pic');
+
+            img.setAttribute('src', `${res[1].hits[1].largeImageURL}`);
+            document.getElementById('location').textContent = `${res[2].geonames[0].toponymName}, ${res[2].geonames[0].countryName}`;
+            
+            if (duration >= 7) {
+                document.getElementById('current').textContent = `${res[0].data[0].temp}°C`;
+                document.getElementById('forecast-title').textContent = 'Forecast';
+                // Get forecast with a loop
+                let days = '';
+                for (let i = 0; i < duration; i++) {
+                    const date = res[0].data[i].datetime;
+                    const dateFormatted = date.toLocaleString({ month: 'long', day: 'numeric' });
+                    console.log(dateFormatted);
+                    days += `<div class="day"><ul><li>${dateFormatted}</li><li>${res[0].data[i].max_temp}°</li><li>${res[0].data[i].min_temp}°</li></ul></div>`;
+                    document.getElementById('forecast-weather').innerHTML = days;
+                }
+            }
+            else if (duration > 0 && duration < 7) {
+                document.getElementById('figcaption').textContent = `${res[0].data[0].city_name}, ${res[0].data[0].country_code}`;
+                document.getElementById('current').textContent = `${res[0].data[0].temp}°C`;
+            }
+
         })
+
 }
 
-const setOneColumn = () => {
-    const inputs = document.getElementById('inputs');
-    inputs.classList.add('no-results');
+
+const showContent = (id) => {
+    const inputs = document.getElementById(id);
+    inputs.classList.remove('hide');
 }
+
 
 export { handleSubmit }

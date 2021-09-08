@@ -40,11 +40,12 @@ async function addData(request, response) {
         const country = cityData.geonames[0].countryName;
         const lat = cityData.geonames[0].lat;
         const lon = cityData.geonames[0].lng;
+        console.log(cityData.geonames[0]);
         getImage(city, country, pixabayKey).then((image) => {
             getWeather(lat, lon, weatherbitKey, duration).then((weather) =>{
                 try {
                     // Send response as an array, with weather info and image
-                    response.send([weather, image]);
+                    response.send([weather, image, cityData]);
                 }
                 catch (error) {
                     console.log('Error in the addData function: ',error);
