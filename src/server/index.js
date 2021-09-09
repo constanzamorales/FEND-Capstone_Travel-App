@@ -95,7 +95,7 @@ async function getWeather(lat, lon, key, duration) {
 
 // [Pixabay API] Use city entered by user to get a picture of the location.
 async function getImage(city, country, key) {
-    const pixabayResponse = await fetch(`https://pixabay.com/api/?key=${key}&q=${city}+${country}&category=places&safesearch=true`);
+    const pixabayResponse = await fetch(`https://pixabay.com/api/?key=${key}&q=${city}+${country}`);
     try {
         const image = await pixabayResponse.json();
         return image;

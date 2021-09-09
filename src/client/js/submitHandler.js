@@ -32,7 +32,7 @@ function handleSubmit(event) {
             showContent('destination-pic');
 
             // Posting image
-            img.setAttribute('src', `${res[1].hits[1].largeImageURL}`);
+            img.setAttribute('src', `${res[1].hits[0].largeImageURL}`);
             img.setAttribute('alt', `Photo of ${res[2].geonames[0].toponymName}`)
 
             // Posting destination name in title and figcaption
