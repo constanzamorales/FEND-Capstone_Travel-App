@@ -6,4 +6,7 @@ $tertiary-color: #a3adce;
 $accent-color: #fdb848;
 $text-color: #000;
 $font-weights: ('light': 300, 'regular': 400, 'bold': 700);
-$mobile: 800px;
+$mobile-max: 700px;
+$mobile-min: 375px;
+$tablet-max: 1024px;
+$tablet-min: 800px;

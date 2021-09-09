@@ -44,13 +44,19 @@
             <div class="results-row-1">
                 <div id="destination-pic" class="destination-pic hide">
                     <figure>
-                        <img id="img" alt="Picture of the destination.">
+                        <img id="img">
                     </figure>
                     <figcaption id="figcaption"></figcaption>
                 </div>
                 <div id="current-weather">
                     <h3 id="location"></h3>
-                    <p id="current"></p>
+                    <div id="current">
+                        <img id="current-icon">
+                        <div class="weather-content">
+                            <p id="current-temp" class="current-temp"></p>
+                            <p id="description"></p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -58,6 +64,10 @@
                 <h3 id="forecast-title"></h3>
                 <div id="forecast-weather">
                 </div>
+            </div>
+
+            <div class="powered-by">
+                <p>Powered by Geonames, Weatherbit & Pixabay</p>
             </div>
         </section>
     </main>

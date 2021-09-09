@@ -44,7 +44,7 @@ async function addData(request, response) {
         getImage(city, country, pixabayKey).then((image) => {
             getWeather(lat, lon, weatherbitKey, duration).then((weather) =>{
                 try {
-                    // Send response as an array, with weather info and image
+                    // Send response as an array, with data from Weatherbit, Pixabay and Geonames APIs
                     response.send([weather, image, cityData]);
                 }
                 catch (error) {

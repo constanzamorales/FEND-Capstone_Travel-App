@@ -1,14 +1,16 @@
 const { DateTime } = require("luxon");
 
 // Setting up date picker
-const tomorrow = DateTime.now().plus({ days: 1 });
+const today = DateTime.now();
+const maxDate = DateTime.now().plus({ days: 16 });
 const picker = new Litepicker({
     element: document.getElementById('pickerstart'),
     elementEnd: document.getElementById('pickerend'),
     singleMode: false,
     allowRepick: true,
     autoRefresh: true,
-    minDate: tomorrow,
+    minDate: today,
+    maxDate: maxDate,
     tooltipNumber: (totalDays) => {
         return totalDays - 1;
     }
