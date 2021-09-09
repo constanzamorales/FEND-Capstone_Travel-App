@@ -41,6 +41,12 @@
         </section>
 
         <section id ="results" class="results hide">
+            <div class="loading-container">
+                <svg id ="loading" class="spinner hide" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                </svg>
+            </div>
+
             <div class="results-row-1">
                 <div id="destination-pic" class="destination-pic hide">
                     <figure>
@@ -76,6 +82,13 @@
         <p><i class="bi bi-code-square"></i> Coded by <a href="https://www.constanzamorales.com">Coni</a> - Icons by <a href="https://icons.getbootstrap.com/"> <i class="bi bi-bootstrap"></i> Bootstrap Icons</a></p>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/litepicker.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js');
+            });
+        }
+    </script>
 
 </body>
 </html>

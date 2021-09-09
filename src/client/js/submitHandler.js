@@ -1,6 +1,8 @@
 import fetch from 'node-fetch';
 import { setDuration } from './tripDuration';
 const { DateTime } = require("luxon");
+const loader = document.getElementById('loading');
+const results = document.getElementById('results');
 
 // Reset values when reloading page
 window.onload = function () {
@@ -11,6 +13,8 @@ window.onload = function () {
 
 function handleSubmit(event) {
     event.preventDefault()
+    results.classList.remove('hide');
+    loader.classList.remove('hide');
     // Save duration value in a variable
     const duration = setDuration();
     const userInput = document.getElementById('city').value;
@@ -27,8 +31,11 @@ function handleSubmit(event) {
         .then(res => res.json())
         .then(function(res) {
             console.log(res);
+            const cityName = `${res[2].geonames[0].toponymName}`;
+            const countryName = `${res[2].geonames[0].countryName}`;
 
-            showContent('results');
+            loader.classList.add('hide');
+
             showContent('destination-pic');
 
             // Posting image
@@ -36,8 +43,8 @@ function handleSubmit(event) {
             img.setAttribute('alt', `Photo of ${res[2].geonames[0].toponymName}`)
 
             // Posting destination name in title and figcaption
-            document.getElementById('location').textContent = `${res[2].geonames[0].toponymName}, ${res[2].geonames[0].countryName}`;
-            document.getElementById('figcaption').textContent = `${res[2].geonames[0].toponymName}, ${res[2].geonames[0].countryName}`;
+            document.getElementById('location').textContent = `${cityName}, ${countryName}`;
+            document.getElementById('figcaption').textContent = `${cityName}, ${countryName}`;
             
             // Posting weather
             if (duration >= 7 && duration <= 16) {
@@ -73,9 +80,7 @@ function handleSubmit(event) {
             else {
                 alert('Please enter a valid duration: 1 day min, 16 days max. Thank you :)');
             }
-
         })
-
 }
 
 

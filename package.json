@@ -9,6 +9,9 @@
     "build-prod": "webpack --config webpack.prod.js",
     "build-dev": "webpack-dev-server --config webpack.dev.js --open"
   },
+  "jest": {
+    "testEnvironment": "jsdom"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/constanzamorales/FEND-Capstone_Travel-App.git"
@@ -37,6 +40,8 @@
     "cors": "^2.8.5",
     "css-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.2",
+    "jest": "^27.1.1",
+    "jsdom": "^17.0.0",
     "mini-css-extract-plugin": "^2.2.0",
     "node-fetch": "^2.6.1",
     "node-sass": "^6.0.1",
@@ -45,6 +50,7 @@
     "sass-loader": "^12.1.0",
     "style-loader": "^3.2.1",
     "terser-webpack-plugin": "^5.1.4",
-    "webpack-dev-server": "^4.0.0"
+    "webpack-dev-server": "^4.0.0",
+    "workbox-webpack-plugin": "^6.3.0"
   }
 }

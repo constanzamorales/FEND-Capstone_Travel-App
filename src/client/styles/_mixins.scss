@@ -1,0 +1,33 @@
+@mixin flexCenter($direction) {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: $direction;
+}
+
+@mixin flexLeft($direction) {
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: $direction;
+}
+
+@mixin mainContainer() {
+	background-color: white;
+	padding: 30px;
+	border-radius: 15px;
+	box-shadow: 10px 10px 15px -2px rgba($tertiary-color, .1);
+}
+
+// Media query mixin for mobile
+@mixin mobile {
+	@media (max-width: $mobile-max) {
+		@content;
+	}
+}
+
+// Media query mixin for mobile
+@mixin tablet {
+	@media (max-width: $tablet-max) and (min-width: $tablet-min) {
+		@content;
+	}
+}

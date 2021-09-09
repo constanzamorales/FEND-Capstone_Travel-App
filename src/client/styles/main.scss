@@ -1,42 +1,9 @@
 @import './resets';
+@import './mixins';
 @import './variables';
 
 @function weight($weight-name) {
 	@return map-get($font-weights, $weight-name);
-}
-
-@mixin flexCenter($direction) {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: $direction;
-}
-
-@mixin flexLeft($direction) {
-	display: flex;
-	justify-content: flex-start;
-	flex-direction: $direction;
-}
-
-@mixin mainContainer() {
-	background-color: white;
-	padding: 30px;
-	border-radius: 15px;
-	box-shadow: 10px 10px 15px -2px rgba($tertiary-color, .1);
-}
-
-// Media query mixin for mobile
-@mixin mobile {
-	@media (max-width: $mobile-max) and (min-width: $mobile-min) {
-		@content;
-	}
-}
-
-// Media query mixin for mobile
-@mixin tablet {
-	@media (max-width: $tablet-max) and (min-width: $tablet-min) {
-		@content;
-	}
 }
 
 body {
@@ -194,7 +161,6 @@ footer {
 
 .results-row-1 {
 	@include flexLeft(row);
-	flex-wrap: wrap;
 	width: 100%;
 
 	& .destination-pic img {
@@ -203,13 +169,16 @@ footer {
 		border-radius: 15px;
 
 		@include mobile {
-			width: 240px;
+			width: 200px;
 			margin-bottom: 20px;
 		}
 
 		@include tablet {
 			width: 290px;
 		}
+	}
+	@include mobile {
+		@include flexLeft(column);
 	}
 }
 
@@ -256,6 +225,9 @@ footer {
 			@include flexCenter(column);
 			padding-top: 10px;
 		}
+		@include tablet {
+			@include flexCenter(column);
+		}
 	}
 	& img#current-icon {
 		width: 110px;
@@ -287,6 +259,69 @@ footer {
 
 .hide {
 	display: none;
+}
+
+.loading-container {
+	width: 100%;
+	@include flexCenter(column);
+}
+
+// Spinner by Fran Pérez https://codepen.io/mrrocks/pen/EiplA
+#loading {
+	$offset: 187;
+	$duration: 1.4s;
+
+	.spinner {
+		animation: rotator $duration linear infinite;
+	}
+
+	@keyframes rotator {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(270deg);
+		}
+	}
+
+	.path {
+		stroke-dasharray: $offset;
+		stroke-dashoffset: 0;
+		transform-origin: center;
+		animation: dash $duration ease-in-out infinite, colors ($duration*4) ease-in-out infinite;
+	}
+
+	@keyframes colors {
+		0% {
+			stroke: $primary-color;
+		}
+		25% {
+			stroke: $secondary-color;
+		}
+		50% {
+			stroke: $tertiary-color;
+		}
+		75% {
+			stroke: $accent-color;
+		}
+		100% {
+			stroke: $darker-primary;
+		}
+	}
+
+	@keyframes dash {
+		0% {
+			stroke-dashoffset: $offset;
+		}
+		50% {
+			stroke-dashoffset: $offset/4;
+			transform: rotate(135deg);
+		}
+		100% {
+			stroke-dashoffset: $offset;
+			transform: rotate(450deg);
+		}
+	}
 }
 
 // Override Litepicker colors
