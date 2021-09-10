@@ -9,6 +9,7 @@ window.onload = function () {
     document.getElementById('city').value = "";
     document.getElementById('pickerstart').value = DateTime.now().toISODate();
     document.getElementById('pickerend').value = 'YYYY-MM-DD';
+    
 }
 
 function handleSubmit(event) {
