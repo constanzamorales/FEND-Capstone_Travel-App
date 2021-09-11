@@ -1,10 +1,10 @@
-const path = require('path')
-const webpack = require('webpack')
-const HtmlWebPackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin')
-const WorkboxPlugin = require('workbox-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
     entry: './src/client/index.js',
@@ -22,14 +22,10 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                use: [
-                    'style-loader', 
-                    'css-loader', 
-                    'sass-loader'
-                ],
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
             },
             {
-                test: /\.css$/i,
+                test: /\.css$/,
                 use: [
                     MiniCssExtractPlugin.loader,
                      'css-loader'
@@ -40,8 +36,7 @@ module.exports = {
     optimization: {
         minimizer: [
             new TerserPlugin({}),
-            new OptimizeCssAssetsPlugin({}),
-        ]
+            new OptimizeCssAssetsPlugin({})],
     },
     plugins: [
         new HtmlWebPackPlugin({

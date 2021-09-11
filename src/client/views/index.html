@@ -8,9 +8,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <!--<script src="https://cdn.jsdelivr.net/npm/litepicker/dist/litepicker.js"></script>-->
     <title>FEND Capstone - Travel App</title>
 </head>
-<body class="light">
+<body>
 
     <header>
         <h1><i class="bi bi-geo-fill text-headline"></i> Travel Weather App</h1>
@@ -81,11 +82,13 @@
     <footer>
         <p><i class="bi bi-code-square"></i> Coded by <a href="https://www.constanzamorales.com">Coni</a> - Icons by <a href="https://icons.getbootstrap.com/"> <i class="bi bi-bootstrap"></i> Bootstrap Icons</a></p>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/litepicker.js"></script>
+
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js');
+                navigator.serviceWorker.register('/service-worker.js')
+                .then(reg => console.log('Service Worker: Registered!'))
+                .catch(err => console.log('Error: ', err) )
             });
         }
     </script>

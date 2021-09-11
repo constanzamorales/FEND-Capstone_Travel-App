@@ -24,6 +24,7 @@ const displayWeather = async (duration, res) => {
                     <li class="min-temp">${res[0].data[i].min_temp}°</li></ul></div>`;
             document.getElementById('forecast-weather').innerHTML = days;
         }
+        return true;
     }
     else if (duration > 0 && duration < 7) {
         const icon = document.getElementById('current-icon');
@@ -31,9 +32,11 @@ const displayWeather = async (duration, res) => {
         icon.setAttribute('alt', `${res[0].data[0].weather.description} icon`);
         document.getElementById('current-temp').textContent = `${res[0].data[0].temp}°C`;
         document.getElementById('description').textContent = `${res[0].data[0].weather.description}`;
+        return true;
     }
     else {
         alert('Please enter a valid duration: 1 day min, 16 days max. Thank you :)');
+        return false;
     }
 }
 

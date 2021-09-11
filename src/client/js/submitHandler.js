@@ -1,4 +1,4 @@
-//import fetch from 'node-fetch';
+import Litepicker from 'litepicker';
 import { setDuration } from './tripDuration';
 import { postData } from './postData';
 import { displayWeather } from './displayWeather';
@@ -12,15 +12,33 @@ window.onload = function () {
     document.getElementById('city').value = "";
     document.getElementById('pickerstart').value = DateTime.now().toISODate();
     document.getElementById('pickerend').value = 'YYYY-MM-DD';
-    
+
+    // Setting up date picker
+    const today = DateTime.now();
+    const maxDate = DateTime.now().plus({ days: 16 });
+    new Litepicker({
+        element: document.getElementById('pickerstart'),
+        elementEnd: document.getElementById('pickerend'),
+        singleMode: false,
+        allowRepick: true,
+        autoRefresh: true,
+        minDate: today,
+        maxDate: maxDate,
+        tooltipNumber: (totalDays) => {
+            return totalDays - 1;
+        }
+    });
 }
 
 function handleSubmit(event) {
     event.preventDefault()
     results.classList.remove('hide');
     loader.classList.remove('hide');
+    const startDate = DateTime.fromISO(document.getElementById('pickerstart').value);
+    const endDate = DateTime.fromISO(document.getElementById('pickerend').value);
     // Save duration value in a variable
-    const duration = setDuration();
+    const duration = setDuration(startDate, endDate);
+    console.log(duration);
     const userInput = document.getElementById('city').value;
     postData(userInput, duration)
     .then((res) => {
